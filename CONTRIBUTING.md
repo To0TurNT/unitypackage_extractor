@@ -23,8 +23,9 @@ Releases are built and published automatically by the
 [`Release Build`](.github/workflows/build.yaml) workflow when a `v*` tag is pushed.
 
 * Bump `version` in `setup.py`.
-* Move the `[Unreleased]` section of `CHANGELOG.md` under a new `[x.y.z] - YYYY-MM-DD`
-  heading, start a fresh `[Unreleased]`, and update the compare links at the bottom.
+* Add a new `## [x.y.z] - YYYY-MM-DD` section to `CHANGELOG.md` documenting the
+  changes relative to upstream (under `### Added` / `### Changed` / `### Fixed`),
+  and add a matching `[x.y.z]: …/compare/vA.B.C...vx.y.z` link at the bottom.
 * Commit those changes, then tag and push:
   * `git tag vX.Y.Z`
   * `git push origin master --tags`
