@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://github.com/To0TurNT/unitypackage_extractor/actions" target="_blank"><img alt="build status" src="https://github.com/To0TurNT/unitypackage_extractor/workflows/Package%20Tests/badge.svg"></a>
-    <a href="https://pypi.org/project/unitypackage_extractor/" target="_blank"><img alt="pypi python versions" src="https://img.shields.io/pypi/pyversions/unitypackage_extractor.svg"></a>
+    <a href="https://github.com/To0TurNT/unitypackage_extractor/actions/workflows/test.yml" target="_blank"><img alt="package tests" src="https://github.com/To0TurNT/unitypackage_extractor/actions/workflows/test.yml/badge.svg?branch=master"></a>
+    <a href="https://github.com/To0TurNT/unitypackage_extractor/releases/latest" target="_blank"><img alt="python versions" src="https://img.shields.io/badge/python-3.6%20%E2%80%93%203.13-blue"></a>
 </p>
 
 # Unity Package Extractor
