@@ -1,15 +1,12 @@
 name: Release Build
 
-# Cut a release by pushing a tag, e.g.:
-#   git tag v1.2.0
-#   git push origin v1.2.0
 on:
   push:
     tags:
       - 'v*'
 
 permissions:
-  contents: write   # needed to create the GitHub Release
+  contents: write
 
 jobs:
   build:
