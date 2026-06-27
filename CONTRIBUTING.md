@@ -6,25 +6,32 @@ Here's how to run all the development stuff.
 * `pyenv global 3.7.6-amd64` (or whatever the latest is pyinstaller supports, sometimes it's not up to date)
 * `pipenv install --dev`
 
-## Building
+## Building (local)
 
-Building is a little convoluted because we build a x64 and an x86 binary.
+We build a x64 and an x86 binary. Use a Python interpreter of the matching bitness
+(e.g. via `pyenv`) for each:
 
-TODO: not sure if `pyenv global` is still needed. In the past I think it had trouble with local versions of different python bitness
-
-* `pyenv global 3.7.6-amd64`
-* `pipenv run pip freeze > tmp-requirements.txt`
-* `pip install -r tmp-requirements.txt`
-* `pip install pyinstaller`
-* `pyinstaller --onefile unitypackage_extractor/extractor.py` (or `python -m PyInstaller`, idk why but `pyinstaller` doesn't work sometimes)
-* Do the same with `pyenv global 3.7.6` (without `-amd64` suffix) to build the x86 .exe
+* `pip install . pyinstaller`
+* `pyinstaller --onefile --name UnityPackageExtractor unitypackage_extractor/extractor.py` (or `python -m PyInstaller`, idk why but `pyinstaller` doesn't work sometimes)
+* The binary lands at `dist/UnityPackageExtractor.exe`. Repeat with an x86 interpreter for the 32-bit build.
 
 ## Testing
 * `pipenv run pytest -v` in the root directory
 
 ## Releasing
+Releases are built and published automatically by the
+[`Release Build`](.github/workflows/build.yaml) workflow when a `v*` tag is pushed.
+
+* Bump `version` in `setup.py`.
+* Move the `[Unreleased]` section of `CHANGELOG.md` under a new `[x.y.z] - YYYY-MM-DD`
+  heading, start a fresh `[Unreleased]`, and update the compare links at the bottom.
+* Commit those changes, then tag and push:
+  * `git tag vX.Y.Z`
+  * `git push origin master --tags`
+* The workflow builds the x64/x86 exes and publishes a GitHub Release with
+  `unitypackage_extractor-x64.zip` / `-x86.zip` attached.
+
+### Publishing to PyPI (optional)
 Refer to [the python docs on packaging for clarification](https://packaging.python.org/tutorials/packaging-projects/).
-* Make sure you've updated `setup.py`
 * `python setup.py sdist bdist_wheel` - Create a source distribution and a binary wheel distribution into `dist/`
 * `twine upload dist/unitypackage_extractor-x.x.x*` - Upload all `dist/` files to PyPI of a given version
-* Make sure to tag the commit you released!

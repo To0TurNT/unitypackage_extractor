@@ -1,5 +1,5 @@
 import sys
-from .extractor import cli
+from .extractor import main
 
 if __name__ == "__main__":
-  cli(sys.argv[1:])
+  sys.exit(main(sys.argv[1:]))
