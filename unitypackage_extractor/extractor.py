@@ -114,9 +114,17 @@ def extractPackage(packagePath, outputPath=None, encoding='utf-8'):
       _progress(i, totalAssets, "Extracting", pathname)
     _progressDone()
 
+class UsageError(Exception):
+  """Raised for a missing/invalid invocation; shown as a plain message, not a traceback."""
+
+def _progName():
+  if getattr(sys, 'frozen', False):
+    return os.path.basename(sys.argv[0]) # e.g. UnityPackageExtractor.exe
+  return "python -m unitypackage_extractor"
+
 def cli(args):
   if not args:
-    raise TypeError("No .unitypackage path was given. \n\nUSAGE: unitypackage_extractor [XXX.unitypackage] (optional/output/path)")
+    raise UsageError(f"No .unitypackage path was given.\n\nUSAGE: {_progName()} [XXX.unitypackage] (optional/output/path)")
   print("TurNT_ Unity Package Extractor")
   startTime = time.time()
   extractPackage(args[0], args[1] if len(args) > 1 else "")
@@ -139,6 +147,10 @@ def main(args):
       pass
   try:
     cli(args)
+  except UsageError as e:
+    print(e, file=sys.stderr)
+    _pause()
+    return 2
   except Exception:
     import traceback
     traceback.print_exc()
